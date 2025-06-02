@@ -1,0 +1,90 @@
+
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8" />
+  <title>Call Center – Nasz Prąd</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      background-color: #f9f7ef;
+      margin: 0;
+    }
+    header {
+      background-color: #1e3515;
+      padding: 20px;
+      text-align: center;
+    }
+    header img {
+      max-height: 40px;
+    }
+    main {
+      padding: 16px;
+      max-width: 600px;
+      margin: auto;
+    }
+    form {
+      background: #fff;
+      border-radius: 16px;
+      padding: 20px;
+      box-shadow: 0 1px 6px rgba(0, 0, 0, 0.1);
+    }
+    input, textarea {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 16px;
+      border-radius: 12px;
+      border: 1px solid #ccc;
+      font-size: 16px;
+      box-sizing: border-box;
+    }
+    button {
+      background-color: #3f582d;
+      color: white;
+      border: none;
+      border-radius: 12px;
+      padding: 14px;
+      font-size: 16px;
+      width: 100%;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+<header>
+  <img src="logo.jpg" alt="Logo Nasz Prąd" />
+</header>
+<main>
+  <form id="taskForm">
+    <input type="text" id="name" placeholder="Imię i nazwisko" required />
+    <input type="text" id="address" placeholder="Adres (ulica, kod, miasto)" required />
+    <input type="text" id="phone" placeholder="Telefon" required />
+    <textarea id="description" placeholder="Opis zgłoszenia" required></textarea>
+    <button type="submit">Dodaj zgłoszenie</button>
+  </form>
+</main>
+
+<script>
+  const form = document.getElementById("taskForm");
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+
+    const task = {
+      name: form.name.value,
+      address: form.address.value,
+      phone: form.phone.value,
+      description: form.description.value,
+      status: "Dostępne",
+      report: ""
+    };
+
+    let tasks = JSON.parse(localStorage.getItem("tasks") || "[]");
+    tasks.push(task);
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+    alert("✅ Zgłoszenie dodane!");
+    form.reset();
+  });
+</script>
+</body>
+</html>
