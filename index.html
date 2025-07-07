@@ -1,196 +1,42 @@
-<!DOCTYPE html>
-<html lang="pl">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Strona HTML z 1000 Linijkami</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            margin: 0;
-            padding: 0;
-        }
-        header, footer {
-            background-color: #333;
-            color: white;
-            text-align: center;
-            padding: 10px 0;
-        }
-        nav {
-            background-color: #444;
-            color: white;
-            padding: 10px 0;
-            text-align: center;
-        }
-        section {
-            margin: 20px;
-            padding: 20px;
-            background-color: white;
-            border-radius: 8px;
-        }
-        h1, h2 {
-            color: #333;
-        }
-        p {
-            line-height: 1.6;
-        }
-        .content {
-            margin-top: 20px;
-        }
-        pre {
-            background-color: #eee;
-            padding: 10px;
-            border-radius: 5px;
-            font-size: 14px;
-            white-space: pre-wrap;
-            word-wrap: break-word;
-        }
-    </style>
-</head>
-<body>
+import numpy as np
+import matplotlib.pyplot as plt
 
-<header>
-    <h1>Witaj na stronie HTML z 1000 Linijkami</h1>
-</header>
+# Parametry fraktala
+width, height = 800, 800
+max_iter = 256
+xmin, xmax, ymin, ymax = -2.0, 1.0, -1.5, 1.5
 
-<nav>
-    <a href="#section1">Sekcja 1</a> | 
-    <a href="#section2">Sekcja 2</a> | 
-    <a href="#section3">Sekcja 3</a> | 
-    <a href="#section4">Sekcja 4</a> | 
-    <a href="#section5">Sekcja 5</a> | 
-    <a href="#section6">Sekcja 6</a> | 
-    <a href="#section7">Sekcja 7</a> | 
-    <a href="#section8">Sekcja 8</a> | 
-    <a href="#section9">Sekcja 9</a> | 
-    <a href="#section10">Sekcja 10</a>
-</nav>
+# Funkcja generująca fraktal Mandelbrota
+def mandelbrot(c, max_iter):
+    z = 0
+    n = 0
+    while abs(z) <= 2 and n < max_iter:
+        z = z*z + c
+        n += 1
+    return n
 
-<section id="section1">
-    <h2>Sekcja 1: Wstęp</h2>
-    <p>To jest przykładowa strona HTML, która ma na celu przedstawienie różnych sekcji i ich zawartości. W tej sekcji zaprezentujemy ogólne wprowadzenie do tematu.</p>
-    <p>Strona składa się z różnych sekcji, które przedstawiają różnorodne treści – od kodu HTML po obrazy i listy. Celem jest stworzenie struktury, która pomieści dokładnie 1000 linijek kodu HTML. Dzięki rozbudowanej strukturze strony, możemy nauczyć się, jak tworzyć bardziej złożone strony internetowe.</p>
-    <p>Każda sekcja tej strony ma swój własny temat, w którym można dodać różne elementy, takie jak teksty, obrazy, linki, a także formularze i inne interaktywne elementy. Zawartość tej strony jest w pełni edytowalna, co pozwala na dostosowanie jej do własnych potrzeb.</p>
-</section>
-
-<section id="section2">
-    <h2>Sekcja 2: Przykład kodu HTML</h2>
-    <p>W tej sekcji zaprezentujemy przykładowy kod HTML. Może on posłużyć jako baza do rozbudowy większych projektów webowych. Oto przykład prostego formularza kontaktowego w HTML:</p>
-    <pre><code>
-&lt;form action="submit.php" method="post"&gt;
-    &lt;label for="name"&gt;Imię:&lt;/label&gt;
-    &lt;input type="text" id="name" name="name"&gt;&lt;br&gt;
+# Tworzenie obrazu fraktala
+def generate_fractal(width, height, xmin, xmax, ymin, ymax, max_iter):
+    # Tworzymy obraz o wymiarach width x height
+    image = np.zeros((height, width))
     
-    &lt;label for="email"&gt;Email:&lt;/label&gt;
-    &lt;input type="email" id="email" name="email"&gt;&lt;br&gt;
+    # Skalowanie na współrzędne
+    x, y = np.linspace(xmin, xmax, width), np.linspace(ymin, ymax, height)
     
-    &lt;label for="message"&gt;Wiadomość:&lt;/label&gt;
-    &lt;textarea id="message" name="message"&gt;&lt;/textarea&gt;&lt;br&gt;
+    for i in range(height):
+        for j in range(width):
+            c = x[j] + 1j * y[i]
+            image[i, j] = mandelbrot(c, max_iter)
     
-    &lt;input type="submit" value="Wyślij"&gt;
-&lt;/form&gt;
-    </code></pre>
-</section>
+    return image
 
-<section id="section3">
-    <h2>Sekcja 3: Listy HTML</h2>
-    <p>HTML pozwala na tworzenie zarówno list numerowanych, jak i nienumerowanych. Poniżej znajduje się przykład obu typów list:</p>
-    <ul>
-        <li>Lista punktowana 1</li>
-        <li>Lista punktowana 2</li>
-        <li>Lista punktowana 3</li>
-    </ul>
-    <ol>
-        <li>Lista numerowana 1</li>
-        <li>Lista numerowana 2</li>
-        <li>Lista numerowana 3</li>
-    </ol>
-</section>
+# Generowanie fraktala
+image = generate_fractal(width, height, xmin, xmax, ymin, ymax, max_iter)
 
-<section id="section4">
-    <h2>Sekcja 4: Tabele HTML</h2>
-    <p>Tabele w HTML są użyteczne do prezentowania danych w sposób uporządkowany. Oto przykład tabeli:</p>
-    <table border="1">
-        <tr>
-            <th>Imię</th>
-            <th>Email</th>
-            <th>Wiek</th>
-        </tr>
-        <tr>
-            <td>Jan</td>
-            <td>jan@example.com</td>
-            <td>30</td>
-        </tr>
-        <tr>
-            <td>Maria</td>
-            <td>maria@example.com</td>
-            <td>25</td>
-        </tr>
-    </table>
-</section>
-
-<section id="section5">
-    <h2>Sekcja 5: Obrazki HTML</h2>
-    <p>W tej sekcji zamieszczamy przykłady obrazków. Obrazki mogą być dodawane do strony za pomocą tagu <code>&lt;img&gt;</code>.</p>
-    <img src="https://via.placeholder.com/300" alt="Przykładowy obrazek" width="300">
-    <img src="https://via.placeholder.com/300" alt="Przykładowy obrazek 2" width="300">
-    <img src="https://via.placeholder.com/300" alt="Przykładowy obrazek 3" width="300">
-</section>
-
-<section id="section6">
-    <h2>Sekcja 6: Linki HTML</h2>
-    <p>Linki w HTML pozwalają na nawigowanie po stronach internetowych. Oto przykład linku:</p>
-    <a href="https://www.example.com" target="_blank">Kliknij tutaj, aby odwiedzić stronę Example</a>
-</section>
-
-<section id="section7">
-    <h2>Sekcja 7: Style CSS</h2>
-    <p>CSS pozwala na stylizowanie strony internetowej. W tej sekcji przedstawiamy przykład prostych stylów CSS:</p>
-    <pre><code>
-body {
-    background-color: #f0f0f0;
-}
-h1 {
-    color: #333;
-    font-size: 2em;
-}
-p {
-    font-family: Arial, sans-serif;
-    line-height: 1.6;
-}
-    </code></pre>
-</section>
-
-<section id="section8">
-    <h2>Sekcja 8: Formularze HTML</h2>
-    <p>Formularze HTML są niezbędne do zbierania danych od użytkowników. Oto przykładowy formularz kontaktowy:</p>
-    <form action="submit_form.php" method="post">
-        <label for="username">Nazwa użytkownika:</label>
-        <input type="text" id="username" name="username"><br><br>
-        <label for="email">Email:</label>
-        <input type="email" id="email" name="email"><br><br>
-        <input type="submit" value="Wyślij">
-    </form>
-</section>
-
-<section id="section9">
-    <h2>Sekcja 9: Wideo HTML</h2>
-    <p>HTML pozwala na osadzanie filmów. Oto przykład osadzonego wideo:</p>
-    <video width="320" height="240" controls>
-        <source src="movie.mp4" type="video/mp4">
-        Twój przeglądarka nie obsługuje wideo.
-    </video>
-</section>
-
-<section id="section10">
-    <h2>Sekcja 10: Podsumowanie</h2>
-    <p>Ta strona to tylko przykład jak może wyglądać struktura HTML. Stworzyliśmy kilka podstawowych sekcji, takich jak formularze, listy, tabele, obrazki i inne. Teraz możesz rozszerzyć tę stronę o dodatkowe funkcje, interaktywność i bardziej zaawansowane elementy.</p>
-</section>
-
-<footer>
-    <p>&copy; 2025 Moja Strona - Wszelkie prawa zastrzeżone</p>
-</footer>
-
-</body>
-</html>
+# Wizualizacja
+plt.imshow(image, cmap='twilight_shifted', extent=(xmin, xmax, ymin, ymax))
+plt.colorbar()
+plt.title("Fraktal Mandelbrota")
+plt.xlabel("Re")
+plt.ylabel("Im")
+plt.show()
